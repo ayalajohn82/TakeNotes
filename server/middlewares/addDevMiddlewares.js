@@ -32,4 +32,8 @@ module.exports = function addDevMiddlewares(app, webpackConfig) {
       }
     });
   });
+
+  app.post('/save', (req, res) => {
+    res.send('hello!');
+  });
 };
