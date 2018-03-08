@@ -4,6 +4,7 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { Helmet } from 'react-helmet';
+import axios from 'axios';
 
 import injectReducer from 'utils/injectReducer';
 import { makeSelectUserInput } from './selectors';
@@ -22,7 +23,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
           Welcome to the Homepage
         </h1>
         <form onSubmit={this.props.onSubmit}>
-          <label htmlFor="add a some words">Add some words to the storage</label>
+          <label htmlFor="input">Add some words to the storage</label>
           <input id="words" type="text" placeholder="Your words!" value={this.props.userInput} onChange={this.props.onChangeInput} />
         </form>
       </div>
@@ -36,19 +37,27 @@ HomePage.propTypes = {
   onChangeInput: PropTypes.func,
 };
 
-export function mapDispatchToProps(dispatch) {
-  return {
-    onChangeInput: (evt) => dispatch(changeInput(evt.target.value)),
-    // onSubmit: (evt) => {},
-  };
-}
+const onSubmit = (evt) => {
+  if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+  axios.post('/user', evt.target.value)
+  .then((response) => {
+    console.log(response);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  onChangeInput: (evt) => dispatch(changeInput(evt.target.value)),
+  onSubmit,
+});
 
 const mapStateToProps = createStructuredSelector({
   userInput: makeSelectUserInput(),
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
 const withReducer = injectReducer({ key: 'home', reducer });
 
 export default compose(
