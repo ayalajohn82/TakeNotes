@@ -17,10 +17,12 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
 import Storage from 'containers/Storage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import Menu from 'components/Menu';
 
 export default function App() {
   return (
     <div>
+      <Menu />
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/storage" component={Storage} />
