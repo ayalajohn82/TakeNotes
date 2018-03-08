@@ -39,9 +39,9 @@ HomePage.propTypes = {
 
 const onSubmit = (evt) => {
   if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-  console.log(evt.target[0].value);
+  // console.log(evt.target[0].value);
   axios.post('/save', { value: evt.target[0].value })
-  .then((response) => {
+  .then((response) => {  // technically don't need response (error handling in server) but here for gp
     console.log(response);
   })
   .catch((error) => {
