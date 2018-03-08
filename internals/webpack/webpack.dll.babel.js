@@ -34,6 +34,9 @@ module.exports = require('./webpack.base.babel')({
       path: join(outputPath, '[name].json'),
     }),
   ],
+  node: {
+    fs: 'empty',
+  },
   performance: {
     hints: false,
   },
