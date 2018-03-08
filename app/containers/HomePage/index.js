@@ -39,7 +39,8 @@ HomePage.propTypes = {
 
 const onSubmit = (evt) => {
   if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-  axios.post('/save', evt.target.value)
+  console.log(evt.target[0].value);
+  axios.post('/save', { value: evt.target[0].value })
   .then((response) => {
     console.log(response);
   })
