@@ -1,7 +1,10 @@
 const path = require('path');
+const bodyparser = require('body-parser');
+const cors = require('cors');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
+const saveInput = require('../../database');
 
 function createWebpackMiddleware(compiler, publicPath) {
   return webpackDevMiddleware(compiler, {
@@ -18,6 +21,8 @@ module.exports = function addDevMiddlewares(app, webpackConfig) {
 
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
+  app.use(bodyparser.json());
+  app.use(cors());
 
   // Since webpackDevMiddleware uses memory-fs internally to store build
   // artifacts, we use it instead
@@ -34,6 +39,10 @@ module.exports = function addDevMiddlewares(app, webpackConfig) {
   });
 
   app.post('/save', (req, res) => {
-    res.send('hello!');
+    saveInput(req.body.value)
+      .then((response) => {
+        res.send(`successfull data insertion! ${response.name}`);
+      })
+      .catch((err) => res.send(err));
   });
 };
