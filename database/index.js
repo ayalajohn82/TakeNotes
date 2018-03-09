@@ -16,4 +16,7 @@ const saveInput = (userInput) => {
   return newInput.save();
 };
 
-module.exports = saveInput;
+const retrieveAll = () => Input.find();
+
+module.exports.saveInput = saveInput;
+module.exports.retrieveAll = retrieveAll;
