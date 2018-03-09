@@ -1,22 +1,20 @@
-import styled from 'styled-components';
+import React from 'react';
+import PropTypes from 'prop-types';
+import Notestyle from './notestyle';
 
-const Note = styled.form`
-  text-decoration:none;
-  color:#000;
-  background:#ffc;
-  display:block;
-  height:20em;
-  width:20em;
-  padding:1em;
-  box-shadow: 5px 5px 7px rgba(33,33,33,.7);
-  -moz-box-shadow:5px 5px 7px rgba(33,33,33,1);
-  -webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7);
-  -moz-transition:-moz-transform .15s linear;
-  -o-transition:-o-transform .15s linear;
-  -webkit-transition:-webkit-transform .15s linear;
-  -webkit-transform: rotate(-6deg);
-  -o-transform: rotate(-6deg);
-  -moz-transform:rotate(-6deg);
-`;
+const Note = (props) => (
+  <Notestyle>
+    <h2>Note #{props.num}</h2>
+    <p>{props.note}</p>
+  </Notestyle>
+);
+
+// PropTypes tell other developers what `props` a component expects
+// Warnings will be shown in the console when the defined rules are violated
+Note.propTypes = {
+  note: PropTypes.string,
+  num: PropTypes.number,
+};
 
 export default Note;
+
