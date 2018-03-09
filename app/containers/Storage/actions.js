@@ -17,6 +17,7 @@ export function loadNotes() {
  * @return {object} An action object with a type of NOTES_LOADED passing the Notes
  */
 export function notesLoaded(notes) {
+  // console.log('in actions', notes);
   return {
     type: 'NOTES_LOADED',
     notes,
