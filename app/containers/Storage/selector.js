@@ -1,13 +1,13 @@
 import { createSelector } from 'reselect';
 
-const selectHome = (state) => state.get('home');
+const selectUserNotes = (state) => state.get('storage');
 
-const makeSelectUserInput = () => createSelector(
-  selectHome,
-  (homeState) => homeState.get('userInput')
+const makeSelectUserNotes = () => createSelector(
+  selectUserNotes,
+  (homeState) => homeState.get('notes'),
 );
 
 export {
-  selectHome,
-  makeSelectUserInput,
+  selectUserNotes,
+  makeSelectUserNotes,
 };
