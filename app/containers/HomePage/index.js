@@ -7,14 +7,14 @@ import { Helmet } from 'react-helmet';
 import axios from 'axios';
 
 import injectReducer from 'utils/injectReducer';
-import { makeSelectUserInput } from './selectors';
+import { makeSelectUserInput } from './selector';
 import { changeInput } from './actions';
 import reducer from './reducer';
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <div>
+      <div className="home">
         <Helmet>
           <title>Home Page</title>
           <meta name="description" content="An App that saves your Strings Homepage" />
@@ -37,21 +37,19 @@ HomePage.propTypes = {
   onChangeInput: PropTypes.func,
 };
 
-const onSubmit = (evt) => {
-  if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-  // console.log(evt.target[0].value);
-  axios.post('/save', { value: evt.target[0].value })
-  .then((response) => {  // technically don't need response (error handling in server) but here for gp
-    console.log(response);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-};
-
-const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = (dispatch) => ({
   onChangeInput: (evt) => dispatch(changeInput(evt.target.value)),
-  onSubmit,
+  onSubmit: (evt) => {
+    if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+    axios.post('/save', { value: evt.target[0].value })
+      .then((response) => {
+        console.log(response);
+        dispatch(changeInput(''));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
 });
 
 const mapStateToProps = createStructuredSelector({
