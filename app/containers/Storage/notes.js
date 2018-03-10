@@ -10,7 +10,7 @@ export const Notes = (props) => {
       </div>
     );
   }
-  return (<div></div>);
+  return (<h2>No notes have been save.<br></br>Go to the home page to add notes</h2>);
 };
 /* eslint-enable */
 
