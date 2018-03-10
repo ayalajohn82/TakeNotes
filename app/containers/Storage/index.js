@@ -62,6 +62,5 @@ const withSaga = injectSaga({ key: 'storage', saga });
 export default compose(
   withReducer,
   withSaga,
-  withConnect
-,
+  withConnect,
 )(Storage);
