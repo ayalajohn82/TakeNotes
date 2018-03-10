@@ -17,7 +17,9 @@ import Page from './notesPage';
 
 export class Storage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentDidMount() {
-    this.props.onLoad();
+    if (this.props.notes === false) {
+      this.props.onLoad();
+    }
   }
   render() {
     return (
